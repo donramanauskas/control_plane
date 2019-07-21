@@ -7,3 +7,10 @@ class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = ['id', 'name', 'type', 'ip', 'ongoing_maintenance']
+
+
+class DeviceMaintenanceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Device
+        fields = ['ongoing_maintenance']
