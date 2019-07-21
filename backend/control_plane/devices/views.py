@@ -9,6 +9,11 @@ class ListAllDevices(ListAPIView):
     serializer_class = DeviceSerializer
 
 
+class DevicesOnMaintenance(ListAPIView):
+    queryset = Device.maintenance_objects
+    serializer_class = DeviceSerializer
+
+
 class AddNewDevice(CreateAPIView):
 
     queryset = Device.objects.all()
