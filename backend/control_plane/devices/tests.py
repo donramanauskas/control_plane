@@ -43,3 +43,18 @@ class AddNewDeviceViewTests(TestCase):
         self.assertTrue(response.data['name'], 'device3')
         self.assertTrue(response.data['type'], 'some_type')
         self.assertEqual(response.data['ip'], '10.0.0.3')
+
+
+class DeleteDevice(TestCase):
+
+    def setUp(self):
+        self.device1 = Device.objects.create(
+            name='device1',
+            type='type1',
+            ip='10.20.30.1'
+        )
+
+    def test_delete_device_view(self):
+        url = reverse('devices:delete', kwargs={'id': 1})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
