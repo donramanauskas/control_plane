@@ -13,3 +13,5 @@ class AddNewDevice(CreateAPIView):
 
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+
+
