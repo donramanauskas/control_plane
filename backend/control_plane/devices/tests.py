@@ -45,7 +45,7 @@ class AddNewDeviceViewTests(TestCase):
         self.assertEqual(response.data['ip'], '10.0.0.3')
 
 
-class DeleteDevice(TestCase):
+class DeleteDeviceViewTests(TestCase):
 
     def setUp(self):
         self.device1 = Device.objects.create(
@@ -58,3 +58,27 @@ class DeleteDevice(TestCase):
         url = reverse('devices:delete', kwargs={'id': 1})
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)
+
+
+class DevicesOnMaintenanceViewTests(TestCase):
+
+    def setUp(self):
+        self.device1 = Device.objects.create(
+            name='device1',
+            type='type1',
+            ip='10.20.30.1',
+            ongoing_maintenance=True
+        )
+
+        self.device2 = Device.objects.create(
+            name='device2',
+            type='type2',
+            ip='10.30.50.1'
+        )
+
+    def test_devices_on_maintenance_view(self):
+        url = reverse('devices:on_maintenance')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(str(self.device1.name), str(response.data))
+        self.assertNotIn(str(self.device2.name), str(response.data))
