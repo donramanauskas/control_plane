@@ -3,28 +3,28 @@ from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, 
 from rest_framework.response import Response
 
 from .models import Device
-from .serializers import DeviceSerializer, DeviceMaintenanceSerializer
+from .serializers import DeviceModelSerializer, DeviceMaintenanceSerializer
 
 
 class ListAllDevices(ListAPIView):
     queryset = Device.objects.all()
-    serializer_class = DeviceSerializer
+    serializer_class = DeviceModelSerializer
 
 
 class DevicesOnMaintenance(ListAPIView):
     queryset = Device.maintenance_objects
-    serializer_class = DeviceSerializer
+    serializer_class = DeviceModelSerializer
 
 
 class AddNewDevice(CreateAPIView):
 
     queryset = Device.objects.all()
-    serializer_class = DeviceSerializer
+    serializer_class = DeviceModelSerializer
 
 
 class DeleteDevice(DestroyAPIView):
     queryset = Device.objects.all()
-    serializer_class = DeviceSerializer
+    serializer_class = DeviceModelSerializer
     lookup_field = 'id'
 
 

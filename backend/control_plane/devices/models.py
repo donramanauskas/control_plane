@@ -16,3 +16,5 @@ class Device(models.Model):
 
     objects = models.Manager()
     maintenance_objects = DeviceMaintenanceManager()
+
+
