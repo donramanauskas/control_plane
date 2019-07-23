@@ -10,12 +10,12 @@ class ListDevicesViewTests(TestCase):
     def setUp(self):
         self.device1 = Device.objects.create(
             name='device1',
-            type='type1',
+            device_type='type1',
             ip='10.0.0.1'
         )
         self.device2 = Device.objects.create(
             name='device2',
-            type='type2',
+            device_type='type2',
             ip='10.0.0.2'
         )
 
@@ -24,9 +24,9 @@ class ListDevicesViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data[0]['name'], 'device1')
-        self.assertEqual(response.data[0]['type'], 'type1')
+        self.assertEqual(response.data[0]['device_type'], 'type1')
         self.assertEqual(response.data[1]['name'], 'device2')
-        self.assertEqual(response.data[1]['type'], 'type2')
+        self.assertEqual(response.data[1]['device_type'], 'type2')
 
 
 class AddNewDeviceViewTests(TestCase):
@@ -35,13 +35,13 @@ class AddNewDeviceViewTests(TestCase):
         url = reverse('devices:add')
         data = {
             'name': 'device3',
-            'type': 'some_type',
+            'device_type': 'some_type',
             'ip': '10.0.0.3'
         }
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 201)
         self.assertTrue(response.data['name'], 'device3')
-        self.assertTrue(response.data['type'], 'some_type')
+        self.assertTrue(response.data['device_type'], 'some_type')
         self.assertEqual(response.data['ip'], '10.0.0.3')
 
 
@@ -50,7 +50,7 @@ class DeleteDeviceViewTests(TestCase):
     def setUp(self):
         self.device1 = Device.objects.create(
             name='device1',
-            type='type1',
+            device_type='type1',
             ip='10.20.30.1'
         )
 
@@ -65,14 +65,14 @@ class DevicesOnMaintenanceViewTests(TestCase):
     def setUp(self):
         self.device1 = Device.objects.create(
             name='device1',
-            type='type1',
+            device_type='type1',
             ip='10.20.30.1',
             ongoing_maintenance=True
         )
 
         self.device2 = Device.objects.create(
             name='device2',
-            type='type2',
+            device_type='type2',
             ip='10.30.50.1'
         )
 
