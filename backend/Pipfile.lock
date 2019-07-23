@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "586ae7b5412ce1b55da8cfafb03387ae0f718b4025a07262f962a762584e1469"
+            "sha256": "d6451e8b32c5dcf15ec311fb5f42c2ea6ab5a7dd14f5a37a5301a33a56677c39"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "control-plane": {
+            "editable": true,
+            "path": "."
+        },
         "django": {
             "hashes": [
                 "sha256:4d23f61b26892bac785f07401bc38cbf8fa4cec993f400e9cd9ddf28fd51c0ea",

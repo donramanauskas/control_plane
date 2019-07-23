@@ -1,4 +1,5 @@
 .idea
 db.sqlite3
 backend/control_plane/static/
+control_plane.egg-info
 __pycache__

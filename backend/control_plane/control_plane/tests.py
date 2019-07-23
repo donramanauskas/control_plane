@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .busines_logic.zabbix import ZabbixInterface
+from business_logic.zabbix import ZabbixInterface
 
 
 class TestZabbixInterface(TestCase):
