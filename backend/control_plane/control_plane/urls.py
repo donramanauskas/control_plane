@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('devices/', include(('devices.urls', 'devices'), namespace='devices'))
+    path('devices/', include(('devices.urls', 'devices'), namespace='devices')),
+    path('kubernetes_manager/', include(('kubernetes_manager.urls', 'kubernetes_manager'), namespace='kubernetes_manager'))
 ]
