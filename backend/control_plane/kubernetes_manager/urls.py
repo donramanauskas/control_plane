@@ -1,3 +1,7 @@
 from django.urls import path
 
-urlpatterns = []
+from .views import KubernetesInfoView
+
+urlpatterns = [
+    path('info/', KubernetesInfoView.as_view(), name='info')
+]
