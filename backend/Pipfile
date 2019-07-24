@@ -9,6 +9,7 @@ verify_ssl = true
 djangorestframework = "*"
 Django = "*"
 control-plane = {editable = true,path = "."}
+kubernetes = "*"
 
 [requires]
 python_version = "3.7"
