@@ -9,4 +9,5 @@ urlpatterns = [
          views.UpdateDeviceMaintenanceStatus.as_view(), name='update_maintenance_status'),
     path('add', views.AddNewDevice.as_view(), name='add'),
     path('delete/<int:id>', views.DeleteDevice.as_view(), name='delete'),
+    path('zabbix_info/', views.GetZabbixInfo.as_view(), name='zabbix_info')
 ]

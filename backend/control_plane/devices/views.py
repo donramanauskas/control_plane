@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
 
@@ -41,5 +42,11 @@ class UpdateDeviceMaintenanceStatus(UpdateAPIView):
             return Response({status.HTTP_403_FORBIDDEN,
                              "Could not covert ongoing_maintenance field into valid value"})
         modified_instance = serializer.save(ongoing_maintenace=maintenance_status)
+
+
+class GetZabbixInfo(APIView):
+
+    def get(self, request):
+        return Response({'Welcome to Zabbix info view'}, status.HTTP_200_OK, )
 
 
