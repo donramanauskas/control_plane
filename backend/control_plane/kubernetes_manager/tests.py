@@ -24,4 +24,5 @@ class KubernetesPodsInfoViewTests(TestCase):
 
         url = reverse('kubernetes_manager:pod_info')
         response = self.client.get(url)
-        print(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('kube-system', str(response.data))
