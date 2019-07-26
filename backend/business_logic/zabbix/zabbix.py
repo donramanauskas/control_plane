@@ -10,7 +10,7 @@ class ZabbixInterface:
         return self.zabbix_data
 
     def get_all_monitored_hosts(self):
-        zapi = ZabbixAPI(url="http://34.244.36.116/zabbix/", user='Admin', password='zabbix')
+        zapi = ZabbixAPI(url="http://34.242.236.94/zabbix/", user='Admin', password='zabbix')
         result1 = zapi.host.get(monitored_hosts=1, output='extend')
         print(result1)
 

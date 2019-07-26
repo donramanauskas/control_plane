@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'devices',
-    'kubernetes_manager'
+    'kubernetes_manager',
+    'zabbix_models'
 ]
 
 MIDDLEWARE = [
