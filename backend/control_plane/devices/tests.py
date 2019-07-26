@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from django.contrib.auth.models import User
+
 
 from .models import Device
 
@@ -48,11 +50,34 @@ class AddNewDeviceViewTests(TestCase):
 class DeleteDeviceViewTests(TestCase):
 
     def setUp(self):
+        self.user1 = User.objects.create_user(
+            username='user_that_authenticates',
+            email='user@email.com',
+            password='goodpassword'
+        )
         self.device1 = Device.objects.create(
             name='device1',
             device_type='type1',
             ip='10.20.30.1'
         )
+        self.device2 = Device.objects.create(
+            name='device2',
+            device_type='type2',
+            ip='10.20.30.2'
+        )
+        self.jwt = self.get_jwt()
+
+    def get_jwt(self):
+        auth_url = reverse('get_jwt')
+        data = {'username': 'user_that_authenticates', 'password': 'goodpassword'}
+        response = self.client.post(auth_url, data, format='json')
+        jwt = response.data['access']
+        return jwt
+
+    def test_delete_device_view(self):
+        url = reverse('devices:delete', kwargs={'id': 1})
+        response = self.client.delete(url, HTTP_AUTHORIZATION='Bearer {}'.format(self.jwt), format='json')
+        self.assertEqual(response.status_code, 204)
 
     def test_delete_device_view_no_auth(self):
         """
