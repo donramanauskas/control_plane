@@ -11,6 +11,7 @@ Django = "*"
 control-plane = {editable = true,path = "."}
 kubernetes = "*"
 py-zabbix="*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.7"

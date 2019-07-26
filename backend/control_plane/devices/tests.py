@@ -54,10 +54,14 @@ class DeleteDeviceViewTests(TestCase):
             ip='10.20.30.1'
         )
 
-    def test_delete_device_view(self):
+    def test_delete_device_view_no_auth(self):
+        """
+        Check that unauthenticated users can not delete devices.
+        """
+
         url = reverse('devices:delete', kwargs={'id': 1})
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 401)
 
 
 class DevicesOnMaintenanceViewTests(TestCase):

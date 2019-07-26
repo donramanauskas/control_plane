@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Device
 from .serializers import DeviceModelSerializer, DeviceMaintenanceSerializer
@@ -24,6 +25,8 @@ class AddNewDevice(CreateAPIView):
 
 
 class DeleteDevice(DestroyAPIView):
+
+    permission_classes = (IsAuthenticated,)
     queryset = Device.objects.all()
     serializer_class = DeviceModelSerializer
     lookup_field = 'id'

@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 urlpatterns = [
+    path('get_jwt/', TokenObtainPairView.as_view(), name='get_jwt'),
     path('admin/', admin.site.urls),
     path('devices/', include(('devices.urls', 'devices'), namespace='devices')),
     path('kubernetes_manager/', include(('kubernetes_manager.urls', 'kubernetes_manager'), namespace='kubernetes_manager'))
