@@ -21,5 +21,6 @@ urlpatterns = [
     path('get_jwt/', TokenObtainPairView.as_view(), name='get_jwt'),
     path('admin/', admin.site.urls),
     path('devices/', include(('devices.urls', 'devices'), namespace='devices')),
-    path('kubernetes_manager/', include(('kubernetes_manager.urls', 'kubernetes_manager'), namespace='kubernetes_manager'))
+    path('kubernetes_manager/', include(('kubernetes_manager.urls', 'kubernetes_manager'), namespace='kubernetes_manager')),
+    path('zabbix/', include(('zabbix_models.urls', 'zabbix'), namespace='zabbix'))
 ]
