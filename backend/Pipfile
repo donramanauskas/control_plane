@@ -10,7 +10,7 @@ djangorestframework = "*"
 Django = "*"
 control-plane = {editable = true,path = "."}
 kubernetes = "*"
-py-zabbix="*"
+pyzabbix="*"
 djangorestframework-simplejwt = "*"
 
 [requires]

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4486d244940dbf862583ffdb8fa2cb5fd188fc16f6ee10cd4b9d772f60aeb692"
+            "sha256": "867c5031cc7135692cacf8e216bed7b627cb3e6c0d18b7d1a18a1725737ceed6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -94,14 +94,6 @@
             ],
             "version": "==3.0.2"
         },
-        "py-zabbix": {
-            "hashes": [
-                "sha256:7da311e3559ce9c6fec7c995fda52be6cd9ba3b66566fbfacd5d4718523108f2",
-                "sha256:c49909a8e19064d0ca459ed5c26bf337beab9541236b6e9b682f61fdc76fe07b"
-            ],
-            "index": "pypi",
-            "version": "==1.1.5"
-        },
         "pyasn1": {
             "hashes": [
                 "sha256:da2420fe13a9452d8ae97a0e478adde1dee153b11ba832a95b223a2ba01c10f7",
@@ -152,6 +144,13 @@
                 "sha256:fe6a88094b64132c4bb3b631412e90032e8cfe9745a58370462240b8cb7553cd"
             ],
             "version": "==5.1.1"
+        },
+        "pyzabbix": {
+            "hashes": [
+                "sha256:23ce8c7cdfe9d207052a383d406d026f6261631b7fff20f46de6a0b4e3437557"
+            ],
+            "index": "pypi",
+            "version": "==0.7.5"
         },
         "requests": {
             "hashes": [
