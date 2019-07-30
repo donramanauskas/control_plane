@@ -30,4 +30,19 @@ class ZabbixInterface:
         except ZabbixAPIException as e:
             print(e)
 
+    def get_template_details(self):
 
+        params = {
+        "output": "extend",
+        "filter": {
+            "host": [
+                "Template OS Linux",
+                "Template OS Windows"
+            ]}
+        }
+
+        try:
+            zabix_response = self.zapi.do_request(method="template.get", params=params)
+            return zabix_response
+        except ZabbixAPIException as e:
+            print(e)
