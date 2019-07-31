@@ -46,3 +46,37 @@ class ZabbixInterface:
             return zabix_response
         except ZabbixAPIException as e:
             print(e)
+
+    def configuration_export(self, host_id):
+        """
+        {
+        "jsonrpc": "2.0",
+        "method": "configuration.export",
+        "params": {
+        "options": {
+            "hosts": [
+                "10161"
+            ]
+        },
+        "format": "xml"
+        },
+        "auth": "038e1d7b1735c6a5436ee9eae095879e",
+        "id": 1
+        }
+
+        :return:
+        """
+        params = {
+            "options": {
+                "hosts": [
+                   host_id
+                ]
+            },
+            "format": "xml"
+        }
+        try:
+            zabix_response = self.zapi.do_request(method="configuration.export", params=params)
+            return zabix_response
+        except ZabbixAPIException as e:
+            print(e)
+
