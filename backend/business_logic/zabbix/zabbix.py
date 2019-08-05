@@ -1,4 +1,6 @@
 from pyzabbix import ZabbixAPI, ZabbixAPIException
+import xml.dom.minidom
+from xml.etree import ElementTree as ET
 
 
 class ZabbixInterface:
@@ -76,7 +78,34 @@ class ZabbixInterface:
         }
         try:
             zabix_response = self.zapi.do_request(method="configuration.export", params=params)
-            return zabix_response
+            template = xml.dom.minidom.parseString(zabix_response['result'].encode('utf-8'))
+            return template
         except ZabbixAPIException as e:
             print(e)
+
+    def configuration_import(self, template):
+
+        import_rules = """
+            "hosts": {
+                "createMissing": true,
+                "updateExisting": true
+            },
+            "items": {
+                "createMissing": true,
+                "updateExisting": true,
+                "deleteMissing": true
+            }
+        """
+
+        try:
+            params = {
+                "format": "xml",
+                "rules": "rules",
+                "source": ET.tostring(template).decode()
+            }
+        except ZabbixAPIException as e:
+            print(e)
+
+
+
 
