@@ -1,6 +1,7 @@
 from pyzabbix import ZabbixAPI, ZabbixAPIException
 import xml.dom.minidom
 from xml.etree import ElementTree as ET
+import pickle
 
 
 class ZabbixInterface:
@@ -35,11 +36,11 @@ class ZabbixInterface:
     def get_template_details(self):
 
         params = {
-        "output": "extend",
-        "filter": {
-            "host": [
-                "Template OS Linux",
-                "Template OS Windows"
+            "output": "extend",
+            "filter": {
+                "host": [
+                    "Template OS Linux",
+                    "Template OS Windows"
             ]}
         }
 
@@ -79,25 +80,28 @@ class ZabbixInterface:
         try:
             zabix_response = self.zapi.do_request(method="configuration.export", params=params)
             template = xml.dom.minidom.parseString(zabix_response['result'].encode('utf-8'))
-            return template
+            xml_string = template.toprettyxml()
+            with open('template.pickle', 'wb') as f:
+                pickle.dump(xml_string, f, pickle.HIGHEST_PROTOCOL)
+            return xml_string
         except ZabbixAPIException as e:
             print(e)
 
     def configuration_import(self, template):
 
-        import_rules = """
+        rules = {
             "hosts": {
-                "createMissing": true,
-                "updateExisting": true
+                "createMissing": True,
+                "updateExisting": True
             },
             "items": {
-                "createMissing": true,
-                "updateExisting": true,
-                "deleteMissing": true
-            }
-        """
+                "createMissing": True,
+                "updateExisting": True,
+                "deleteMissing": True
+            }}
 
         try:
+            zabbix_response = self.zapi.confimport()
             params = {
                 "format": "xml",
                 "rules": "rules",
@@ -107,5 +111,7 @@ class ZabbixInterface:
             print(e)
 
 
-
+z = ZabbixInterface(zabbix_data={'ip': '34.243.139.135'})
+exp = z.configuration_export(host_id="10084")
+print(exp)
 
