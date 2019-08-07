@@ -1,7 +1,5 @@
 from pyzabbix import ZabbixAPI, ZabbixAPIException
-import xml.dom.minidom
-from xml.etree import ElementTree as ET
-import pickle
+import json
 
 
 class ZabbixInterface:
@@ -75,15 +73,12 @@ class ZabbixInterface:
                    host_id
                 ]
             },
-            "format": "xml"
+            "format": "json"
         }
         try:
             zabix_response = self.zapi.do_request(method="configuration.export", params=params)
-            template = xml.dom.minidom.parseString(zabix_response['result'].encode('utf-8'))
-            xml_string = template.toprettyxml()
-            with open('template.pickle', 'wb') as f:
-                pickle.dump(xml_string, f, pickle.HIGHEST_PROTOCOL)
-            return xml_string
+            r_json = json.dumps(zabix_response["result"])
+            return r_json
         except ZabbixAPIException as e:
             print(e)
 
@@ -101,17 +96,15 @@ class ZabbixInterface:
             }}
 
         try:
-            zabbix_response = self.zapi.confimport()
-            params = {
-                "format": "xml",
-                "rules": "rules",
-                "source": ET.tostring(template).decode()
-            }
+            zabbix_response = self.zapi.confimport(confformat='json', source=template, rules=rules)
         except ZabbixAPIException as e:
             print(e)
 
 
-z = ZabbixInterface(zabbix_data={'ip': '34.243.139.135'})
+z = ZabbixInterface(zabbix_data={'ip': '34.249.224.173'})
 exp = z.configuration_export(host_id="10084")
 print(exp)
+
+z2 = ZabbixInterface(zabbix_data={'ip': '34.245.63.8'})
+result = z.configuration_import(exp)
 
