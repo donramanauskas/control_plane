@@ -82,29 +82,50 @@ class ZabbixInterface:
         except ZabbixAPIException as e:
             print(e)
 
-    def configuration_import(self, template):
-
-        rules = {
-            "hosts": {
-                "createMissing": True,
-                "updateExisting": True
+    def template_import(self, host_id):
+        params = {
+            "options": {
+                "hosts": [
+                    host_id
+                ]
             },
-            "items": {
-                "createMissing": True,
-                "updateExisting": True,
-                "deleteMissing": True
-            }}
-
+            "format": "json"
+        }
         try:
-            zabbix_response = self.zapi.confimport(confformat='json', source=template, rules=rules)
+            zabbix_response = self.zapi.do_request(method="configuration.import", params=params)
         except ZabbixAPIException as e:
             print(e)
 
 
-z = ZabbixInterface(zabbix_data={'ip': '34.249.224.173'})
+    def configuration_import(self, template):
+
+        params = {
+            "format": "json",
+            "rules": {
+                "hosts": {
+                    "createMissing": True,
+                    "updateExisting": True
+                },
+                "items": {
+                    "createMissing": True,
+                    "updateExisting": True,
+                    "deleteMissing": True
+                }
+            }
+        }
+        try:
+            zabbix_response = self.zapi.confimport(confformat='json', source=template, rules={})
+        except ZabbixAPIException as e:
+            print(e)
+
+
+z = ZabbixInterface(zabbix_data={'ip': '34.253.200.61'})
 exp = z.configuration_export(host_id="10084")
 print(exp)
 
-z2 = ZabbixInterface(zabbix_data={'ip': '34.245.63.8'})
+with open("exported_template", 'w') as f:
+    template = f.write(exp)
+
+z2 = ZabbixInterface(zabbix_data={'ip': '34.242.73.63'})
 result = z.configuration_import(exp)
 
