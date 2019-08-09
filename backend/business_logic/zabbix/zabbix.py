@@ -119,13 +119,12 @@ class ZabbixInterface:
             print(e)
 
 
-z = ZabbixInterface(zabbix_data={'ip': '34.253.200.61'})
+z = ZabbixInterface(zabbix_data={'ip': '34.243.230.211'})
 exp = z.configuration_export(host_id="10084")
 print(exp)
 
-with open("exported_template", 'w') as f:
-    template = f.write(exp)
 
-z2 = ZabbixInterface(zabbix_data={'ip': '34.242.73.63'})
+
+z2 = ZabbixInterface(zabbix_data={'ip': '54.72.176.86'})
 result = z.configuration_import(exp)
 
